@@ -1,4 +1,6 @@
 using BookCatalog.MicroService.AutoMapper;
+using BookCatalog.MicroService.Messaging.Send.Options;
+using BookCatalog.MicroService.Messaging.Send.Sender;
 using BookCatalog.MicroService.Repositories;
 using BookCatalog.MicroService.Services;
 using Microsoft.AspNetCore.Builder;
@@ -34,7 +36,12 @@ namespace BookCatalog.MicroService
             services.AddScoped<IBookRepository, BookRepository>();
             services.AddAutoMapper(AutoMapperConfig.RegisterMappings());
             services.AddSwaggerGen();
-            
+
+            var serviceClientSettingsConfig = Configuration.GetSection("RabbitMq");
+            services.Configure<RabbitMqConfiguration>(serviceClientSettingsConfig);
+
+            services.AddSingleton<IBookUpdateSender, BookUpdateSender>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
