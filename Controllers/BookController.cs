@@ -1,6 +1,7 @@
 ﻿using BookCatalog.MicroService.Helpers;
 using BookCatalog.MicroService.Models;
 using BookCatalog.MicroService.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -15,52 +16,101 @@ namespace BookCatalog.MicroService.Controllers
     public class BookController : ControllerBase
     {
 
-            // GET api/values
-            private ILogger _logger;
-            private IBookService _service;
+       
+        private ILogger _logger;
+        private IBookService _service;
 
 
-            public BookController(ILogger<BookController> logger, IBookService service)
+        public BookController(ILogger<BookController> logger, IBookService service)
+        {
+            _logger = logger;
+            _service = service;
+
+        }
+
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpGet("/api/book/list")]
+        public ActionResult<List<BookDTO>> GetAll()
+        {
+            try
             {
-                _logger = logger;
-                _service = service;
-
+                return _service.Book.ToList();
             }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
-            [HttpGet("/api/book/getBookList")]
-            public ActionResult<List<BookDTO>> GetBook()
-                {
-                    return _service.GetBook().ToList();
-                }
-
-
-        [HttpGet("/api/book/getBooks")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpGet("/api/book/search")]
         public ActionResult<List<BookDTO>> GetBook([FromQuery] BookParams bookParams)
         {
-            return _service.GetBooks(bookParams.title, bookParams.author, bookParams.isbn).ToList();
+            try
+            {
+                return _service.GetBooks(bookParams.title, bookParams.author, bookParams.isbn).ToList();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
-       
-        [HttpPost("/api/book/InsertBook")]
-            public ActionResult<List<BookDTO>> AddBook(BookDTO bookdto)
-                {
-                    return _service.AddBook(bookdto).ToList();
-                }
 
-            [HttpPut("/api/Book/UpdateBook")]
-            public ActionResult<List<BookDTO>> UpdateBook(BookDTO bookdto)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+        [HttpPost("/api/book/add")]
+        public ActionResult<List<BookDTO>> AddBook(BookDTO bookdto)
+        {
+            try
+            {
+                return _service.AddBook(bookdto).ToList();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+        [HttpPut("/api/book/update")]
+        public ActionResult<List<BookDTO>> UpdateBook(BookDTO bookdto)
+        {
+
+            try
             {
                 return _service.UpdateBook(bookdto).ToList();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
-       
-            [HttpDelete("/api/book/delete/{id}")]
-            public ActionResult<string> DeleteBook(string id)
+
+        [HttpDelete("/api/book/delete/{id}")]
+        public ActionResult<string> DeleteBook(string id)
+        {
+            try
             {
                 _service.DeleteBook(id);
-                 return id;
+                return id;
             }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
     }
-    
+
 
 }

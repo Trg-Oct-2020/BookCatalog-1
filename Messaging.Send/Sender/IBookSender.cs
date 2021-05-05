@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace BookCatalog.MicroService.Messaging.Send.Sender
 {
-    public interface IBookUpdateSender
+    public interface IBookSender
     {
-        void SendBook(Book book);
+        void SendMessagetoQueue(string message);
     }
 }

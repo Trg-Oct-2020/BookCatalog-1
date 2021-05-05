@@ -10,74 +10,54 @@ namespace BookCatalog.MicroService.Repositories
 {
     public class BookRepository : IBookRepository
     {
-
-        public IQueryable<Book> GetBook()
-        {
-            // read file into a string and deserialize JSON to a type
-            var filePath = @".\Repo\Book.json";
-            var readjson = File.ReadAllText(filePath);
-            List<Book> bookDetails = JsonConvert.DeserializeObject<List<Book>>(readjson);
-            return bookDetails.AsQueryable<Book>();
-        }
+        readonly string filePath = @".\DataStore\Book.json";
+        public IQueryable<Book> GetBook() => ReadData.AsQueryable();
 
         public IQueryable<Book> UpdateBook(Book book)
         {
-           
-            // read file into a string and deserialize JSON to a type
-            var filePath = @".\Repo\Book.json";
-            var readjson = File.ReadAllText(filePath);
-            var bookDetails = JsonConvert.DeserializeObject<List<Book>>(readjson);
+            var bookDetails = ReadData;
             var findBook = bookDetails.Where(x => x.id == book.id);
             bookDetails.Remove(findBook.FirstOrDefault());
             bookDetails.Add(book);
-            var serialJson = JsonConvert.SerializeObject(bookDetails);
-            File.WriteAllText(filePath, serialJson);
+            File.WriteAllText(filePath, JsonConvert.SerializeObject(bookDetails));
             return bookDetails.AsQueryable<Book>();
-
         }
-
 
         public IQueryable<Book> AddBook(Book book)
         {
-            // read file into a string and deserialize JSON to a type
-            var filePath = @".\Repo\Book.json";
-            var readjson = File.ReadAllText(filePath);
-            var bookDetails = JsonConvert.DeserializeObject<List<Book>>(readjson);
+            var bookDetails = ReadData;
             bookDetails.Add(book);
-            var serialJson = JsonConvert.SerializeObject(bookDetails);
-            File.WriteAllText(filePath, serialJson);
-           // SendMessagetoQueue("Book Added");
+            File.WriteAllText(filePath, JsonConvert.SerializeObject(bookDetails));
             return bookDetails.AsQueryable<Book>();
         }
-
         public string DeleteBook(string id)
         {
-            var filePath = @".\Repo\Book.json";
-            var readjson = File.ReadAllText(filePath);
-            var bookDetails = JsonConvert.DeserializeObject<List<Book>>(readjson);
+            var bookDetails = ReadData;
             var deletedBook = bookDetails.Where(x => x.id == id);
             bookDetails.Remove(deletedBook.FirstOrDefault());
-            var serialJson = JsonConvert.SerializeObject(bookDetails);
-            File.WriteAllText(filePath, serialJson);
-            //SendMessagetoQueue("Book Deleted");
+            File.WriteAllText(filePath, JsonConvert.SerializeObject(bookDetails));
             return id;
         }
 
-
-        public IQueryable<Book> GetBooks(string title, string author,string isbn)
+        public IQueryable<Book> GetBooks(string title, string author, string isbn)
         {
-            var filePath = @".\Repo\Book.json";
-            var readjson = File.ReadAllText(filePath);
-            var query = JsonConvert.DeserializeObject<List<Book>>(readjson).AsQueryable();
-            //var bookList= bookDetails.Where(x => x.title== title);
-            
-            if(!string.IsNullOrEmpty(title))
+            var query = ReadData.AsQueryable();
+            if (!string.IsNullOrEmpty(title))
                 query = query.Where(x => x.title == title).AsQueryable();
-            if ( !string.IsNullOrEmpty(author))
+            if (!string.IsNullOrEmpty(author))
                 query = query.Where(x => x.author == author).AsQueryable();
             if (!string.IsNullOrEmpty(isbn))
                 query = query.Where(x => x.isbn == isbn).AsQueryable();
             return query;
+        }
+
+        public List<Book> ReadData
+        {
+            get
+            {
+                var readjson = File.ReadAllText(filePath);
+                return JsonConvert.DeserializeObject<List<Book>>(readjson);
+            }
         }
     }
 }

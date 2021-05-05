@@ -3,25 +3,22 @@ using System;
 using System.Text;
 using BookCatalog.MicroService.Messaging.Send.Options;
 using BookCatalog.MicroService.Models;
-//using CustomerApi.Data.Entities;
-//using CustomerApi.Messaging.Send.Options.v1;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 
 namespace BookCatalog.MicroService.Messaging.Send.Sender
 {
-    public class BookUpdateSender: IBookUpdateSender
+    public class BookSender : IBookSender
 
     {
-
         private readonly string _hostname;
             private readonly string _password;
             private readonly string _queueName;
             private readonly string _username;
             private IConnection _connection;
 
-            public BookUpdateSender(IOptions<RabbitMqConfiguration> rabbitMqOptions)
+            public BookSender(IOptions<RabbitMqConfiguration> rabbitMqOptions)
             {
                 _queueName = rabbitMqOptions.Value.QueueName;
                 _hostname = rabbitMqOptions.Value.Hostname;
@@ -31,7 +28,8 @@ namespace BookCatalog.MicroService.Messaging.Send.Sender
                 CreateConnection();
             }
 
-            public void SendBook(Book book)
+
+            public void SendMessagetoQueue(string message)
             {
                 if (ConnectionExists())
                 {
@@ -39,13 +37,14 @@ namespace BookCatalog.MicroService.Messaging.Send.Sender
                     {
                         channel.QueueDeclare(queue: _queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
 
-                        var json = JsonConvert.SerializeObject(book);
+                        var json = JsonConvert.SerializeObject(message);
                         var body = Encoding.UTF8.GetBytes(json);
 
                         channel.BasicPublish(exchange: "", routingKey: _queueName, basicProperties: null, body: body);
                     }
                 }
             }
+
 
             private void CreateConnection()
             {

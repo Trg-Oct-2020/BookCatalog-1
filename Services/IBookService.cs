@@ -9,7 +9,8 @@ namespace BookCatalog.MicroService.Services
 {
     public interface IBookService
     {
-        IEnumerable<BookDTO> GetBook();
+        IEnumerable<BookDTO> Book { get; }
+
         IEnumerable<BookDTO> AddBook(BookDTO bookdto);
         IEnumerable<BookDTO> UpdateBook(BookDTO bookdto);
         string DeleteBook(string id);

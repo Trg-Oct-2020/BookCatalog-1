@@ -40,7 +40,7 @@ namespace BookCatalog.MicroService
             var serviceClientSettingsConfig = Configuration.GetSection("RabbitMq");
             services.Configure<RabbitMqConfiguration>(serviceClientSettingsConfig);
 
-            services.AddSingleton<IBookUpdateSender, BookUpdateSender>();
+            services.AddScoped<IBookSender, BookSender>();
 
         }
 
