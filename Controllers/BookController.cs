@@ -1,5 +1,5 @@
 ﻿using BookCatalog.MicroService.Helpers;
-using BookCatalog.MicroService.Models;
+using BookCatalog.MicroService.DTOs;
 using BookCatalog.MicroService.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +7,6 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace BookCatalog.MicroService.Controllers
 {
@@ -16,10 +15,8 @@ namespace BookCatalog.MicroService.Controllers
     public class BookController : ControllerBase
     {
 
-       
         private ILogger _logger;
         private IBookService _service;
-
 
         public BookController(ILogger<BookController> logger, IBookService service)
         {
@@ -58,7 +55,6 @@ namespace BookCatalog.MicroService.Controllers
             }
 
         }
-
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

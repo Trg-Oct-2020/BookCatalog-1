@@ -2,7 +2,6 @@
 using System;
 using System.Text;
 using BookCatalog.MicroService.Messaging.Send.Options;
-using BookCatalog.MicroService.Models;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
@@ -70,9 +69,7 @@ namespace BookCatalog.MicroService.Messaging.Send.Sender
                 {
                     return true;
                 }
-
                 CreateConnection();
-
                 return _connection != null;
             }
         }

@@ -57,7 +57,7 @@ namespace BookCatalog.MicroService
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Book Catalogue API V1");
                 // To serve SwaggerUI at application's root page, set the RoutePrefix property to an empty string.
-              // c.RoutePrefix = "swagger/ui";
+             
             });
 
             if (env.IsDevelopment())

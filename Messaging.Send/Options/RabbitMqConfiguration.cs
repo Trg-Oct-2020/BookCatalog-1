@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BookCatalog.MicroService.Messaging.Send.Options
+﻿namespace BookCatalog.MicroService.Messaging.Send.Options
 {
     public class RabbitMqConfiguration
     {

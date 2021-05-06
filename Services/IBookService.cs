@@ -1,8 +1,5 @@
-﻿using BookCatalog.MicroService.Models;
-using System;
+﻿using BookCatalog.MicroService.DTOs;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 
 namespace BookCatalog.MicroService.Services

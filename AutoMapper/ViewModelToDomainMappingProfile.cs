@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using BookCatalog.MicroService.Models;
+﻿using AutoMapper;
+using BookCatalog.MicroService.DTOs;
+using BookCatalog.MicroService.Entities;
 
 namespace BookCatalog.MicroService.AutoMapper
 {

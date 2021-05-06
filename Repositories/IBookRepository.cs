@@ -1,8 +1,5 @@
-﻿using BookCatalog.MicroService.Models;
-using System;
-using System.Collections.Generic;
+﻿using BookCatalog.MicroService.Entities;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace BookCatalog.MicroService.Repositories
 {

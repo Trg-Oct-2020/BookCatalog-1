@@ -1,10 +1,8 @@
-﻿using BookCatalog.MicroService.Models;
+﻿using BookCatalog.MicroService.Entities;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace BookCatalog.MicroService.Repositories
 {
@@ -21,6 +19,7 @@ namespace BookCatalog.MicroService.Repositories
             bookDetails.Add(book);
             File.WriteAllText(filePath, JsonConvert.SerializeObject(bookDetails));
             return bookDetails.AsQueryable<Book>();
+            
         }
 
         public IQueryable<Book> AddBook(Book book)
@@ -28,7 +27,7 @@ namespace BookCatalog.MicroService.Repositories
             var bookDetails = ReadData;
             bookDetails.Add(book);
             File.WriteAllText(filePath, JsonConvert.SerializeObject(bookDetails));
-            return bookDetails.AsQueryable<Book>();
+            return bookDetails.AsQueryable<Book>();           
         }
         public string DeleteBook(string id)
         {

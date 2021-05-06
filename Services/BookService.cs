@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using BookCatalog.MicroService.Models;
+using BookCatalog.MicroService.DTOs;
+using BookCatalog.MicroService.Entities;
 using BookCatalog.MicroService.Repositories;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
