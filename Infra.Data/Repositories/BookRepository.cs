@@ -9,9 +9,9 @@ namespace BookCatalog.Infra.Data.Repositories
     public class BookRepository : IBookRepository
     {
         readonly string filePath = @".\DataStore\Book.json";
-        public IQueryable<Book> GetBook() => ReadData.AsQueryable();
+        public IQueryable<Book> GetAll() => ReadData.AsQueryable();
 
-        public IQueryable<Book> UpdateBook(Book book)
+        public IQueryable<Book> Update(Book book)
         {
             var bookDetails = ReadData;
             var findBook = bookDetails.Where(x => x.id == book.id);
@@ -22,14 +22,14 @@ namespace BookCatalog.Infra.Data.Repositories
             
         }
 
-        public IQueryable<Book> AddBook(Book book)
+        public IQueryable<Book> Add(Book book)
         {
             var bookDetails = ReadData;
             bookDetails.Add(book);
             File.WriteAllText(filePath, JsonConvert.SerializeObject(bookDetails));
             return bookDetails.AsQueryable<Book>();           
         }
-        public string DeleteBook(string id)
+        public string Delete(string id)
         {
             var bookDetails = ReadData;
             var deletedBook = bookDetails.Where(x => x.id == id);
@@ -38,7 +38,7 @@ namespace BookCatalog.Infra.Data.Repositories
             return id;
         }
 
-        public IQueryable<Book> GetBooks(string title, string author, string isbn)
+        public IQueryable<Book> Get(string title, string author, string isbn)
         {
             var query = ReadData.AsQueryable();
             if (!string.IsNullOrEmpty(title))

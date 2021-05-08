@@ -8,13 +8,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BookCatalog.MicroService.Controllers
+namespace BookCatalog.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class BookController : ControllerBase
     {
-
         private ILogger _logger;
         private IBookService _service;
 
@@ -53,7 +52,6 @@ namespace BookCatalog.MicroService.Controllers
             {
                 return BadRequest(ex.Message);
             }
-
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -107,6 +105,4 @@ namespace BookCatalog.MicroService.Controllers
 
         }
     }
-
-
 }

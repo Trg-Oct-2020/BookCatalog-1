@@ -23,12 +23,12 @@ namespace BookCatalog.Application.Services
             _bookSender = bookSender;
         }
 
-        public IEnumerable<BookDTO> Book => _bookrepository.GetBook().ProjectTo<BookDTO>(_mapper.ConfigurationProvider);
+        public IEnumerable<BookDTO> Book => _bookrepository.GetAll().ProjectTo<BookDTO>(_mapper.ConfigurationProvider);
 
         public IEnumerable<BookDTO> AddBook(BookDTO bookdto)
         {
 
-            var result = _bookrepository.AddBook(_mapper.Map<Book>(bookdto)).ProjectTo<BookDTO>(_mapper.ConfigurationProvider);
+            var result = _bookrepository.Add(_mapper.Map<Book>(bookdto)).ProjectTo<BookDTO>(_mapper.ConfigurationProvider);
             if (result.Any())
             {
                 _bookSender.SendMessagetoQueue("Book Added");
@@ -38,7 +38,7 @@ namespace BookCatalog.Application.Services
 
         public IEnumerable<BookDTO> UpdateBook(BookDTO bookdto)
         {
-            var result = _bookrepository.UpdateBook(_mapper.Map<Book>(bookdto)).ProjectTo<BookDTO>(_mapper.ConfigurationProvider);
+            var result = _bookrepository.Update(_mapper.Map<Book>(bookdto)).ProjectTo<BookDTO>(_mapper.ConfigurationProvider);
             if (result.Any())
             {
                 _bookSender.SendMessagetoQueue("Book Updated");
@@ -48,7 +48,7 @@ namespace BookCatalog.Application.Services
 
         public string DeleteBook(string id)
         {
-            var result = _bookrepository.DeleteBook(id);
+            var result = _bookrepository.Delete(id);
             if (!string.IsNullOrEmpty(result))
             {
                 _bookSender.SendMessagetoQueue("Book Deleted");
@@ -59,7 +59,7 @@ namespace BookCatalog.Application.Services
 
         public IEnumerable<BookDTO> GetBooks(string title, string author, string isbn)
         {
-            return _bookrepository.GetBooks(title, author, isbn).ProjectTo<BookDTO>(_mapper.ConfigurationProvider);
+            return _bookrepository.Get(title, author, isbn).ProjectTo<BookDTO>(_mapper.ConfigurationProvider);
         }
 
     }
