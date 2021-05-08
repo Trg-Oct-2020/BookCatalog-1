@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BookCatalog.MicroService.DTOs
+namespace BookCatalog.Application.DTOs
 {
     public class BookDTO
     {

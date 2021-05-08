@@ -1,8 +1,8 @@
-﻿using BookCatalog.MicroService.DTOs;
-using BookCatalog.MicroService.Entities;
+﻿using BookCatalog.Application.DTOs;
+using BookCatalog.Domain.Entities;
 using AutoMapper;
 
-namespace BookCatalog.MicroService.AutoMapper
+namespace BookCatalog.Application.AutoMapper
 {
     public class DomainToViewModelMappingProfile : Profile
     {

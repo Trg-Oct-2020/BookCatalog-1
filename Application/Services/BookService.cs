@@ -1,19 +1,13 @@
 ﻿using AutoMapper;
-using BookCatalog.MicroService.DTOs;
-using BookCatalog.MicroService.Entities;
-using BookCatalog.MicroService.Repositories;
-using Newtonsoft.Json;
-using RabbitMQ.Client;
-using System;
+using BookCatalog.Application.DTOs;
+using BookCatalog.Infra.Data.Repositories;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper.QueryableExtensions;
 using BookCatalog.MicroService.Messaging.Send.Sender;
+using BookCatalog.Domain.Entities;
 
-namespace BookCatalog.MicroService.Services
+namespace BookCatalog.Application.Services
 {
     public class BookService : IBookService
     {

@@ -1,20 +1,10 @@
-using BookCatalog.MicroService.AutoMapper;
+using BookCatalog.Infra.CrossCutting.IoC;
 using BookCatalog.MicroService.Messaging.Send.Options;
-using BookCatalog.MicroService.Messaging.Send.Sender;
-using BookCatalog.MicroService.Repositories;
-using BookCatalog.MicroService.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BookCatalog.MicroService
 {
@@ -30,18 +20,10 @@ namespace BookCatalog.MicroService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-           
-            services.AddScoped<IBookService, BookService>();
-            services.AddScoped<IBookRepository, BookRepository>();
-            services.AddAutoMapper(AutoMapperConfig.RegisterMappings());
-            services.AddSwaggerGen();
-
+            services.AddControllers();         
             var serviceClientSettingsConfig = Configuration.GetSection("RabbitMq");
             services.Configure<RabbitMqConfiguration>(serviceClientSettingsConfig);
-
-            services.AddScoped<IBookSender, BookSender>();
-
+            RegisterServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,6 +57,11 @@ namespace BookCatalog.MicroService
             {
                 endpoints.MapControllers();
             });
+        }
+        private static void RegisterServices(IServiceCollection services)
+        {
+            // Adding dependencies from another layers (isolated from Presentation)
+            NativeInjectorBootStrapper.RegisterServices(services);
         }
     }
 }

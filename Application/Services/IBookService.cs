@@ -1,8 +1,8 @@
-﻿using BookCatalog.MicroService.DTOs;
+﻿using BookCatalog.Application.DTOs;
 using System.Collections.Generic;
 
 
-namespace BookCatalog.MicroService.Services
+namespace BookCatalog.Application.Services
 {
     public interface IBookService
     {

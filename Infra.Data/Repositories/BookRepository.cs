@@ -1,10 +1,10 @@
-﻿using BookCatalog.MicroService.Entities;
+﻿using BookCatalog.Domain.Entities;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace BookCatalog.MicroService.Repositories
+namespace BookCatalog.Infra.Data.Repositories
 {
     public class BookRepository : IBookRepository
     {

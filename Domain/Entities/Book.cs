@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BookCatalog.MicroService.Entities
+namespace BookCatalog.Domain.Entities
 {
     public class Book
     {

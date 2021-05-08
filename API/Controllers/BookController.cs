@@ -1,6 +1,6 @@
 ﻿using BookCatalog.MicroService.Helpers;
-using BookCatalog.MicroService.DTOs;
-using BookCatalog.MicroService.Services;
+using BookCatalog.Application.DTOs;
+using BookCatalog.Application.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

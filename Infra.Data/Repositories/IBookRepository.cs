@@ -1,7 +1,7 @@
-﻿using BookCatalog.MicroService.Entities;
+﻿using BookCatalog.Domain.Entities;
 using System.Linq;
 
-namespace BookCatalog.MicroService.Repositories
+namespace BookCatalog.Infra.Data.Repositories
 {
     public interface IBookRepository
     {
