@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace BookCatalog.Infra.Data.Repositories
+namespace BookCatalog.Infra.Persistence.Json.Repositories
 {
     public abstract class JsonRepository<TEntity> : IJsonRepository<TEntity> where TEntity : IEntity
     {
-        readonly string filePath = @".\DataStore\Book.json";
+        readonly string filePath = @".\Infra.Persistence.Json\DataStore\Book.json";
 
         public IQueryable<TEntity> Add(TEntity obj)
         {

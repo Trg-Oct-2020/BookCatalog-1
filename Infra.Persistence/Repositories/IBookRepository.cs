@@ -1,7 +1,7 @@
 ﻿using BookCatalog.Domain.Entities;
 using System.Linq;
 
-namespace BookCatalog.Infra.Data.Repositories
+namespace BookCatalog.Infra.Persistence.Repositories
 {
     public interface IBookRepository
     {

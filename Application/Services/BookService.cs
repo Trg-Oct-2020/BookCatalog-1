@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using BookCatalog.Application.DTOs;
-using BookCatalog.Infra.Data.Repositories;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper.QueryableExtensions;
 using BookCatalog.MicroService.Messaging.Send.Sender;
 using BookCatalog.Domain.Entities;
+using BookCatalog.Infra.Persistence.Repositories;
 
 namespace BookCatalog.Application.Services
 {

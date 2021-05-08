@@ -1,7 +1,8 @@
 ﻿using BookCatalog.Domain.Entities;
+using BookCatalog.Infra.Persistence.Repositories;
 using System.Linq;
 
-namespace BookCatalog.Infra.Data.Repositories
+namespace BookCatalog.Infra.Persistence.Json.Repositories
 {
     public class JSonBookRepository: JsonRepository<Book> , IBookRepository
     {

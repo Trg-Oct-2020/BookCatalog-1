@@ -1,8 +1,9 @@
 ﻿using BookCatalog.Application.AutoMapper;
 using BookCatalog.MicroService.Messaging.Send.Sender;
-using BookCatalog.Infra.Data.Repositories;
+using BookCatalog.Infra.Persistence.Json.Repositories;
 using BookCatalog.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
+using BookCatalog.Infra.Persistence.Repositories;
 
 namespace BookCatalog.Infra.CrossCutting.IoC
 {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace BookCatalog.Infra.Data.Repositories
+namespace BookCatalog.Infra.Persistence.Repositories
 {
     public class BookRepository : IBookRepository
     {
