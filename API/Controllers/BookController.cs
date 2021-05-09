@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BookCatalog.API.Controllers
 {
@@ -27,26 +28,22 @@ namespace BookCatalog.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpGet("/api/book/list")]
-        public ActionResult<List<BookDTO>> GetAll()
+       
+        public async Task<IActionResult> GetAll()
         {
-            try
-            {
-                return _service.Book.ToList();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+                   
+                return Ok(await _service.GetAll());
+           
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpGet("/api/book/search")]
-        public ActionResult<List<BookDTO>> GetBook([FromQuery] BookParams bookParams)
+        public async Task<IActionResult> GetBookAsync([FromQuery] BookParams bookParams)
         {
             try
             {
-                return _service.GetBooks(bookParams.title, bookParams.author, bookParams.isbn).ToList();
+                return Ok(await _service.GetBooks(bookParams.title, bookParams.author, bookParams.isbn));
             }
             catch (Exception ex)
             {
@@ -58,51 +55,59 @@ namespace BookCatalog.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         [HttpPost("/api/book/add")]
-        public ActionResult<List<BookDTO>> AddBook(BookDTO bookdto)
-        {
-            try
-            {
-                return _service.AddBook(bookdto).ToList();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+      
 
+        public async Task<IActionResult> AddAsync(BookDTO bookdto)
+        {
+            var result = await _service.Add(bookdto);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         [HttpPut("/api/book/update")]
-        public ActionResult<List<BookDTO>> UpdateBook(BookDTO bookdto)
+       
+
+        public async Task<IActionResult> Update(BookDTO bookdto)
         {
-
-            try
+            var result = await _service.Update(bookdto);
+            if (result.Success)
             {
-                return _service.UpdateBook(bookdto).ToList();
+                return Ok(result);
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
+            return BadRequest(result);
         }
-
 
         [HttpDelete("/api/book/delete/{id}")]
-        public ActionResult<string> DeleteBook(string id)
-        {
-            try
+       
+
+        public async Task<IActionResult> Delete(string id)
+        {           
+
+            var result = await _service.Delete(id);
+            if (result.Success)
             {
-                _service.DeleteBook(id);
-                return id;
+                return Ok(result);
             }
-            catch (Exception ex)
+            return BadRequest(result);
+        }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(string id)
+        {
+            var Book = await _service.GetById(id);
+
+            if (Book == null)
             {
-                return BadRequest(ex.Message);
+                return BadRequest($"No data available for id {id}");
             }
 
+            return Ok(Book);
         }
+              
     }
 }

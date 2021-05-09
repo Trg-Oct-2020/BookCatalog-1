@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BookCatalog.Application.DTOs
 {
-    public class BookDTO
+    public class BookDTO: IDto
     {
         public String id { get; set; }
 

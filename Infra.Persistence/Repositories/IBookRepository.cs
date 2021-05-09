@@ -1,14 +1,18 @@
 ﻿using BookCatalog.Domain.Entities;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BookCatalog.Infra.Persistence.Repositories
 {
     public interface IBookRepository
     {
-        public IQueryable<Book> GetAll();
-        public IQueryable<Book> Add(Book book);
-        public IQueryable<Book> Update(Book book);
-        public string Delete(string id);
-        public IQueryable<Book> Get(string title, string author, string isbn);
+        Task<IQueryable<Book>> GetAll();
+       
+        Task<bool> AddAsync(Book book);
+        Task<bool> UpdateAsync(Book book);
+        Task<bool> DeleteAsync(string id);
+        Task<IQueryable<Book>> Get(string title, string author, string isbn);
+        Task<Book> GetById(string id);
     }
 }

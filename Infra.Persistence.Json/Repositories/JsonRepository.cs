@@ -1,8 +1,13 @@
 ﻿using BookCatalog.Domain.Abstractions;
+using BookCatalog.MicroService.Application.Utilities.Results;
+using BookCatalog.MicroService.Domain.Abstractions;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace BookCatalog.Infra.Persistence.Json.Repositories
 {
@@ -10,21 +15,42 @@ namespace BookCatalog.Infra.Persistence.Json.Repositories
     {
         readonly string filePath = @".\Infra.Persistence.Json\DataStore\Book.json";
 
-        public IQueryable<TEntity> Add(TEntity obj)
+       
+
+        public async Task<bool> AddAsync(TEntity obj)
         {
-            var bookDetails = ReadData;
-            bookDetails.Add(obj);
-            File.WriteAllText(filePath, JsonConvert.SerializeObject(bookDetails));
-            return bookDetails.AsQueryable<TEntity>();
+            try
+            { 
+                var bookDetails = ReadData;
+                bookDetails.Add(obj);
+                File.WriteAllText(filePath, JsonConvert.SerializeObject(bookDetails));
+               
+                return await Task.FromResult(true);
+            }
+            catch (Exception e)
+            {
+                return await Task.FromResult(false);
+            }
+
         }
 
-        public string Delete(string id)
+       
+
+        public async Task<bool> DeleteAsync(string id)
         {
-            var bookDetails = ReadData;
-            var deletedBook = bookDetails.Where(x => x.id == id);
-            bookDetails.Remove(deletedBook.FirstOrDefault());
-            File.WriteAllText(filePath, JsonConvert.SerializeObject(bookDetails));
-            return id;
+            try
+            {
+                var bookDetails = ReadData;
+                var deletedBook = bookDetails.Where(x => x.id == id).FirstOrDefault();
+                bookDetails.Remove(deletedBook);
+                File.WriteAllText(filePath, JsonConvert.SerializeObject(bookDetails));
+                return await Task.FromResult(true);
+            }
+            catch (Exception e)
+            {
+                return await Task.FromResult(false);
+            }
+
         }
 
         //public void Dispose()
@@ -32,16 +58,28 @@ namespace BookCatalog.Infra.Persistence.Json.Repositories
         //    throw new System.NotImplementedException();
         //}
 
-        public IQueryable<TEntity> GetAll() => ReadData.AsQueryable();
+        //public IQueryable<TEntity> GetAll() => ReadData.AsQueryable();
 
-        public IQueryable<TEntity> Update(TEntity obj)
+
+
+       
+
+        public async Task<bool> UpdateAsync(TEntity obj)
         {
-            var bookDetails = ReadData;
-            var findBook = bookDetails.Where(x => x.id == obj.id);
-            bookDetails.Remove(findBook.FirstOrDefault());
-            bookDetails.Add(obj);
-            File.WriteAllText(filePath, JsonConvert.SerializeObject(bookDetails));
-            return bookDetails.AsQueryable<TEntity>();
+            try
+            {
+                var bookDetails = ReadData;
+                var findBook = bookDetails.Where(x => x.id == obj.id);
+                bookDetails.Remove(findBook.FirstOrDefault());
+                bookDetails.Add(obj);
+                File.WriteAllText(filePath, JsonConvert.SerializeObject(bookDetails));
+                return await Task.FromResult(true);
+            }
+            catch (Exception e)
+            {
+                return await Task.FromResult(false);
+            }
+
         }
 
         public List<TEntity> ReadData
@@ -52,5 +90,15 @@ namespace BookCatalog.Infra.Persistence.Json.Repositories
                 return JsonConvert.DeserializeObject<List<TEntity>>(readjson);
             }
         }
+
+        public async Task<TEntity> GetById(string id) => await Task.FromResult(ReadData.Where(x => x.id == id).FirstOrDefault());
+
+
+
+
+
+
+        public async Task<IQueryable<TEntity>> GetAll() => await Task.FromResult(ReadData.AsQueryable<TEntity>());
+
     }
 }

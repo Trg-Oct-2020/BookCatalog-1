@@ -6,6 +6,9 @@ using AutoMapper.QueryableExtensions;
 using BookCatalog.MicroService.Messaging.Send.Sender;
 using BookCatalog.Domain.Entities;
 using BookCatalog.Infra.Persistence.Repositories;
+using BookCatalog.MicroService.Application.Utilities.Results;
+using System;
+using System.Threading.Tasks;
 
 namespace BookCatalog.Application.Services
 {
@@ -15,6 +18,11 @@ namespace BookCatalog.Application.Services
         private List<Book> _bookDetails;
         private readonly IMapper _mapper;
         private IBookSender _bookSender;
+
+        
+
+        
+
         public BookService(IBookRepository bookrepository, IMapper mapper, IBookSender bookSender)
         {
             _bookDetails = new List<Book>();
@@ -23,45 +31,70 @@ namespace BookCatalog.Application.Services
             _bookSender = bookSender;
         }
 
-        public IEnumerable<BookDTO> Book => _bookrepository.GetAll().ProjectTo<BookDTO>(_mapper.ConfigurationProvider);
+ 
 
-        public IEnumerable<BookDTO> AddBook(BookDTO bookdto)
+        public async Task<List<BookDTO>> GetAll()
         {
-
-            var result = _bookrepository.Add(_mapper.Map<Book>(bookdto)).ProjectTo<BookDTO>(_mapper.ConfigurationProvider);
-            if (result.Any())
-            {
-                _bookSender.SendMessagetoQueue("Book Added");
-            }
-            return result;
+            return (await _bookrepository.GetAll()).ProjectTo<BookDTO>(_mapper.ConfigurationProvider).ToList();
         }
-
-        public IEnumerable<BookDTO> UpdateBook(BookDTO bookdto)
+        public async Task<IResult> Add(BookDTO bookdto)
         {
-            var result = _bookrepository.Update(_mapper.Map<Book>(bookdto)).ProjectTo<BookDTO>(_mapper.ConfigurationProvider);
-            if (result.Any())
+          
+            
+                   
+
+                if (await _bookrepository.AddAsync(_mapper.Map<Book>(bookdto))    )
+                { 
+                    _bookSender.SendMessagetoQueue("Book Added");
+                    return new SuccessResult("Book Added");
+                }
+                else
+                {
+                    _bookSender.SendMessagetoQueue("Book could not be added");
+                    return new ErrorResult("Book could not be added");
+                }
+           
+        }
+        public async Task<IResult> Update(BookDTO bookdto)
+        {
+            if (await _bookrepository.UpdateAsync(_mapper.Map<Book>(bookdto)))
             {
+              
                 _bookSender.SendMessagetoQueue("Book Updated");
+                return new SuccessResult("Book Updated");
             }
-            return result;
-        }
-
-        public string DeleteBook(string id)
-        {
-            var result = _bookrepository.Delete(id);
-            if (!string.IsNullOrEmpty(result))
+            else
             {
-                _bookSender.SendMessagetoQueue("Book Deleted");
+                return new ErrorResult("Book could not be updated");
             }
-            return result;
+              
+        }      
+
+        public async Task<IResult> Delete(string id)
+        {            
+            if (GetById(id)==null)
+                return new ErrorResult("Book could not be found for id : "+id);
+
+            if (await _bookrepository.DeleteAsync(id))
+            {
+               
+                _bookSender.SendMessagetoQueue("Book Deleted");
+                return new SuccessResult("Book Deleted");
+            }
+            else
+            {
+                return new ErrorResult("Book could not be deleted");
+            }
         }
 
-
-        public IEnumerable<BookDTO> GetBooks(string title, string author, string isbn)
+        public async Task<IEnumerable<BookDTO>> GetBooks(string title, string author, string isbn)
         {
-            return _bookrepository.Get(title, author, isbn).ProjectTo<BookDTO>(_mapper.ConfigurationProvider);
+            return  (await _bookrepository.Get(title, author, isbn)).ProjectTo<BookDTO>(_mapper.ConfigurationProvider);
         }
 
+        public async Task<BookDTO> GetById(string id)
+        {
+            return _mapper.Map<BookDTO>(await _bookrepository.GetById(id));
+        }
     }
-
 }
