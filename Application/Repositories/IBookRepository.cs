@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BookCatalog.Infra.Persistence.Repositories
+namespace BookCatalog.Application.Repositories
 {
     public interface IBookRepository
     {

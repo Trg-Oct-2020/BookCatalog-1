@@ -1,5 +1,5 @@
-﻿using BookCatalog.Domain.Entities;
-using BookCatalog.Infra.Persistence.Repositories;
+﻿using BookCatalog.Application.Repositories;
+using BookCatalog.Domain.Entities;
 using System.Linq;
 using System.Threading.Tasks;
 

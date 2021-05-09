@@ -1,7 +1,7 @@
 ﻿using BookCatalog.Application.AutoMapper;
+using BookCatalog.Application.Repositories;
 using BookCatalog.Application.Services;
 using BookCatalog.Infra.Persistence.Json.Repositories;
-using BookCatalog.Infra.Persistence.Repositories;
 using BookCatalog.MicroService.Messaging.Send.Sender;
 using Microsoft.Extensions.DependencyInjection;
 

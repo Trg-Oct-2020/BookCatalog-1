@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using BookCatalog.Application.DTOs;
+using BookCatalog.Application.Repositories;
 using BookCatalog.Domain.Entities;
-using BookCatalog.Infra.Persistence.Repositories;
 using BookCatalog.MicroService.Application.Utilities.Results;
 using BookCatalog.MicroService.Messaging.Send.Sender;
 using System.Collections.Generic;
