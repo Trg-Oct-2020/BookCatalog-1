@@ -86,7 +86,7 @@ namespace BookCatalog.Presentations.Backends.WebAPI.Controllers
 
         public async Task<IActionResult> Delete(string id)
         {
-
+            _logger.LogInformation("Attempting to delete the book with {id}!", id);
             var result = await _service.Delete(id);
             if (result.Success)
             {
@@ -97,13 +97,12 @@ namespace BookCatalog.Presentations.Backends.WebAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
+            _logger.LogInformation("Searching for the book with id {id}!", id);
             var Book = await _service.GetById(id);
-
             if (Book == null)
             {
                 return BadRequest($"No data available for id {id}");
             }
-
             return Ok(Book);
         }
 

@@ -16,5 +16,16 @@ namespace BookCatalog.Persistence.Generic.Abstractions
         Task<bool> AddAsync(TEntity obj);
         Task<bool> UpdateAsync(TEntity obj);
         Task<bool> DeleteAsync(string id);
+
+        /*
+        Task AddOrUpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
+
+        void Delete(TEntity entity);
+
+        Task<TEntity> FirstOrDefaultAsync<T>(IQueryable<TEntity> query);
+
+        Task<TEntity> SingleOrDefaultAsync<T>(IQueryable<TEntity> query);
+
+        Task<List<TEntity>> ToListAsync<T>(IQueryable<T> query);  */
     }
 }

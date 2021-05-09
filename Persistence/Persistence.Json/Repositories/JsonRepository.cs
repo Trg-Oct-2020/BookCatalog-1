@@ -10,7 +10,7 @@ namespace BookCatalog.Infra.Persistence.Json.Repositories
 {
     public abstract class JsonRepository<TEntity> : IJsonRepository<TEntity> where TEntity : IEntity
     {
-        readonly string filePath = @".\Infra.Persistence.Json\DataStore\Book.json";
+        readonly string filePath = @".\Persistence\Persistence.Json\DataStore\Book.json";
 
 
 
@@ -35,7 +35,7 @@ namespace BookCatalog.Infra.Persistence.Json.Repositories
         public async Task<bool> DeleteAsync(string id)
         {
             try
-            {                
+            {
                 ReadData.Remove(ReadData.Where(x => x.id == id).FirstOrDefault());
                 File.WriteAllText(filePath, JsonConvert.SerializeObject(ReadData));
                 return await Task.FromResult(true);
