@@ -1,5 +1,5 @@
 ﻿using BookCatalog.Domain.Abstractions;
-using BookCatalog.MicroService.Domain.Abstractions;
+using BookCatalog.Persistence.Generic.Abstractions;
 
 namespace BookCatalog.Infra.Persistence.Json.Repositories
 {

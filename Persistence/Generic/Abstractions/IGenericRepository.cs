@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BookCatalog.MicroService.Domain.Abstractions
+namespace BookCatalog.Persistence.Generic.Abstractions
 {
     // public interface IGenericRepository<TEntity> : IDisposable where TEntity : IEntity
     public interface IGenericRepository<TEntity> where TEntity : IEntity

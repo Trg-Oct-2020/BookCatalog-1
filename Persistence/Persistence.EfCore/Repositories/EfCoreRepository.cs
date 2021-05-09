@@ -1,5 +1,5 @@
 ﻿using BookCatalog.Domain.Abstractions;
-using BookCatalog.MicroService.Domain.Abstractions;
+using BookCatalog.Persistence.Generic.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
