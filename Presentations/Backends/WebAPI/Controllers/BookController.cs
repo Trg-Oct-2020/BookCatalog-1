@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace BookCatalog.API.Controllers
+namespace BookCatalog.Presentations.Backends.WebAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]

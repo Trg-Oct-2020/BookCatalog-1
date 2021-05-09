@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookCatalog.MicroService", "BookCatalog.MicroService.csproj", "{6C78BA03-8FF5-4BF8-A0E2-E51DAE99A265}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookCatalog", "BookCatalog.csproj", "{6C78BA03-8FF5-4BF8-A0E2-E51DAE99A265}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5FE98D1B-D72D-4FB0-9236-458D3E91E7A2}"
 EndProject
