@@ -18,9 +18,8 @@ namespace BookCatalog.Infra.Persistence.Json.Repositories
         {
             try
             {
-                var bookDetails = ReadData;
-                bookDetails.Add(obj);
-                File.WriteAllText(filePath, JsonConvert.SerializeObject(bookDetails));
+                ReadData.Add(obj);
+                File.WriteAllText(filePath, JsonConvert.SerializeObject(ReadData));
 
                 return await Task.FromResult(true);
             }
@@ -36,11 +35,9 @@ namespace BookCatalog.Infra.Persistence.Json.Repositories
         public async Task<bool> DeleteAsync(string id)
         {
             try
-            {
-                var bookDetails = ReadData;
-                var deletedBook = bookDetails.Where(x => x.id == id).FirstOrDefault();
-                bookDetails.Remove(deletedBook);
-                File.WriteAllText(filePath, JsonConvert.SerializeObject(bookDetails));
+            {                
+                ReadData.Remove(ReadData.Where(x => x.id == id).FirstOrDefault());
+                File.WriteAllText(filePath, JsonConvert.SerializeObject(ReadData));
                 return await Task.FromResult(true);
             }
             catch (Exception e)
@@ -65,11 +62,9 @@ namespace BookCatalog.Infra.Persistence.Json.Repositories
         {
             try
             {
-                var bookDetails = ReadData;
-                var findBook = bookDetails.Where(x => x.id == obj.id);
-                bookDetails.Remove(findBook.FirstOrDefault());
-                bookDetails.Add(obj);
-                File.WriteAllText(filePath, JsonConvert.SerializeObject(bookDetails));
+                ReadData.Remove(ReadData.Where(x => x.id == obj.id).FirstOrDefault());
+                ReadData.Add(obj);
+                File.WriteAllText(filePath, JsonConvert.SerializeObject(ReadData));
                 return await Task.FromResult(true);
             }
             catch (Exception e)
@@ -83,8 +78,7 @@ namespace BookCatalog.Infra.Persistence.Json.Repositories
         {
             get
             {
-                var readjson = File.ReadAllText(filePath);
-                return JsonConvert.DeserializeObject<List<TEntity>>(readjson);
+                return JsonConvert.DeserializeObject<List<TEntity>>(File.ReadAllText(filePath));
             }
         }
 
