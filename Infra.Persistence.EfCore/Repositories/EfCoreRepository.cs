@@ -103,7 +103,7 @@ namespace BookCatalog.Infra.Data.Repositories
             return id;
         }
 
-       
+
 
         public TEntity GetById(string id)
         {
@@ -120,7 +120,7 @@ namespace BookCatalog.Infra.Data.Repositories
             throw new NotImplementedException();
         }
 
-       
+
 
         public Task<bool> AddAsync(TEntity obj)
         {

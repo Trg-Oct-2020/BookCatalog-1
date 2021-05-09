@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace BookCatalog.Infra.Persistence.Json.Repositories
 {
-    public class JSonBookRepository: JsonRepository<Book> , IBookRepository
+    public class JSonBookRepository : JsonRepository<Book>, IBookRepository
     {
-        public async Task <IQueryable<Book>> Get(string title, string author, string isbn)
+        public async Task<IQueryable<Book>> Get(string title, string author, string isbn)
         {
             var query = ReadData.AsQueryable();
             if (!string.IsNullOrEmpty(title))

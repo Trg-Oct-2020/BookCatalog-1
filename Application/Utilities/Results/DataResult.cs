@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BookCatalog.MicroService.Application.Utilities.Results
+﻿namespace BookCatalog.MicroService.Application.Utilities.Results
 {
     public class DataResult<T> : Result, IDataResult<T>
     {

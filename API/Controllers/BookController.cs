@@ -1,12 +1,10 @@
-﻿using BookCatalog.MicroService.Helpers;
-using BookCatalog.Application.DTOs;
+﻿using BookCatalog.Application.DTOs;
 using BookCatalog.Application.Services;
+using BookCatalog.MicroService.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BookCatalog.API.Controllers
@@ -28,12 +26,12 @@ namespace BookCatalog.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpGet("/api/book/list")]
-       
+
         public async Task<IActionResult> GetAll()
         {
-                   
-                return Ok(await _service.GetAll());
-           
+
+            return Ok(await _service.GetAll());
+
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -55,7 +53,7 @@ namespace BookCatalog.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         [HttpPost("/api/book/add")]
-      
+
 
         public async Task<IActionResult> AddAsync(BookDTO bookdto)
         {
@@ -71,7 +69,7 @@ namespace BookCatalog.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         [HttpPut("/api/book/update")]
-       
+
 
         public async Task<IActionResult> Update(BookDTO bookdto)
         {
@@ -84,10 +82,10 @@ namespace BookCatalog.API.Controllers
         }
 
         [HttpDelete("/api/book/delete/{id}")]
-       
+
 
         public async Task<IActionResult> Delete(string id)
-        {           
+        {
 
             var result = await _service.Delete(id);
             if (result.Success)
@@ -108,6 +106,6 @@ namespace BookCatalog.API.Controllers
 
             return Ok(Book);
         }
-              
+
     }
 }

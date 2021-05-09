@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BookCatalog.Application.DTOs
 {
-    public class BookDTO: IDto
+    public class BookDTO : IDto
     {
         public String id { get; set; }
 

@@ -1,6 +1,6 @@
-﻿using BookCatalog.Application.DTOs;
+﻿using AutoMapper;
+using BookCatalog.Application.DTOs;
 using BookCatalog.Domain.Entities;
-using AutoMapper;
 
 namespace BookCatalog.Application.AutoMapper
 {

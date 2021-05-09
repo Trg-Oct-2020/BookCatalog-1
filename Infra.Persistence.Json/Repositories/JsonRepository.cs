@@ -1,12 +1,9 @@
 ﻿using BookCatalog.Domain.Abstractions;
-using BookCatalog.MicroService.Application.Utilities.Results;
-using BookCatalog.MicroService.Domain.Abstractions;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace BookCatalog.Infra.Persistence.Json.Repositories
@@ -15,16 +12,16 @@ namespace BookCatalog.Infra.Persistence.Json.Repositories
     {
         readonly string filePath = @".\Infra.Persistence.Json\DataStore\Book.json";
 
-       
+
 
         public async Task<bool> AddAsync(TEntity obj)
         {
             try
-            { 
+            {
                 var bookDetails = ReadData;
                 bookDetails.Add(obj);
                 File.WriteAllText(filePath, JsonConvert.SerializeObject(bookDetails));
-               
+
                 return await Task.FromResult(true);
             }
             catch (Exception e)
@@ -34,7 +31,7 @@ namespace BookCatalog.Infra.Persistence.Json.Repositories
 
         }
 
-       
+
 
         public async Task<bool> DeleteAsync(string id)
         {
@@ -62,7 +59,7 @@ namespace BookCatalog.Infra.Persistence.Json.Repositories
 
 
 
-       
+
 
         public async Task<bool> UpdateAsync(TEntity obj)
         {

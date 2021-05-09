@@ -20,7 +20,7 @@ namespace BookCatalog.MicroService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();         
+            services.AddControllers();
             var serviceClientSettingsConfig = Configuration.GetSection("RabbitMq");
             services.Configure<RabbitMqConfiguration>(serviceClientSettingsConfig);
             RegisterServices(services);
@@ -32,14 +32,14 @@ namespace BookCatalog.MicroService
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
-            
+
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Book Catalogue API V1");
                 // To serve SwaggerUI at application's root page, set the RoutePrefix property to an empty string.
-             
+
             });
 
             if (env.IsDevelopment())
