@@ -1,4 +1,4 @@
-﻿using BookCatalog.MicroService.Domain.Entities;
+﻿using BookCatalog.Domain.Entities;
 using System;
 
 namespace BookCatalog.Domain.Entities

@@ -1,7 +1,7 @@
 ﻿using BookCatalog.Domain.Abstractions;
 using System;
 
-namespace BookCatalog.MicroService.Domain.Entities
+namespace BookCatalog.Domain.Entities
 {
     public class Entity : IEntity
     {
